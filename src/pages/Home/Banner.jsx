@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 import team1 from '../../assets/team/developer (1).jpg'
 import team2 from '../../assets/team/office.jpg'
+import { CiSearch } from "react-icons/ci";
 
 const Banner = () => {
   return (
@@ -44,7 +45,8 @@ const Banner = () => {
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <input type="text" placeholder="Type here" className="input" />
+          <button className="btn btn-primary"> <CiSearch size={20} className="font-bold" />Search</button>
         </div>
       </div>
     </div>
