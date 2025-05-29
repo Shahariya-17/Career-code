@@ -1,31 +1,64 @@
 import React from "react";
 import { Link, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const JobApply = () => {
   const { id: jobId } = useParams();
   const { user } = useAuth();
   console.log(jobId, user);
 
-  const handleApplyFormSubmit = e =>{
+  const handleApplyFormSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const linkedIn = form.linkedIn.value;
     const github = form.github.value;
     const resume = form.resume.value;
-    console.log(linkedIn, github, resume)
-  }
+    console.log(linkedIn, github, resume);
+
+    const application = {
+      jobId,
+      applicant: user.email,
+      linkedIn,
+      github,
+      resume,
+    };
+
+    axios
+      .post("http://localhost:3000/applications", application)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your application has been submitted",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <div className="apply-page-bg min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
         <div className="apply-card animated-card w-full max-w-md p-8 border border-white/20">
           <h1 className="text-4xl font-extrabold text-center text-white drop-shadow-xl mb-6 tracking-wide">
-            Apply for this Job: <Link className="text-2xl btn" to={`/jobs/${jobId}`}>Details</Link>
+            Apply for this Job:{" "}
+            <Link className="text-2xl btn" to={`/jobs/${jobId}`}>
+              Details
+            </Link>
           </h1>
           <form onSubmit={handleApplyFormSubmit} className="space-y-6">
             <div>
-              <label className="block font-semibold mb-2 text-white">LinkedIn Link</label>
+              <label className="block font-semibold mb-2 text-white">
+                LinkedIn Link
+              </label>
               <input
                 type="url"
                 name="linkedIn"
@@ -34,7 +67,9 @@ const JobApply = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold mb-2 text-white">Github</label>
+              <label className="block font-semibold mb-2 text-white">
+                Github
+              </label>
               <input
                 type="url"
                 name="github"
@@ -43,7 +78,9 @@ const JobApply = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold mb-2 text-white">Resume Link</label>
+              <label className="block font-semibold mb-2 text-white">
+                Resume Link
+              </label>
               <input
                 type="url"
                 name="resume"
