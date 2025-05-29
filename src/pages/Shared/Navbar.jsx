@@ -31,54 +31,22 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
+   {
+    user && <>
+        <li>
         <NavLink
-          to="/about"
+          to="/myApplications"
           className={({ isActive }) =>
             isActive
               ? "btn btn-ghost bg-sky-500 text-white"
               : "btn btn-ghost"
           }
         >
-          About
+          My Applications
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/services"
-          className={({ isActive }) =>
-            isActive
-              ? "btn btn-ghost bg-sky-500 text-white"
-              : "btn btn-ghost"
-          }
-        >
-          Services
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/blog"
-          className={({ isActive }) =>
-            isActive
-              ? "btn btn-ghost bg-sky-500 text-white"
-              : "btn btn-ghost"
-          }
-        >
-          Blog
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            isActive
-              ? "btn btn-ghost bg-sky-500 text-white"
-              : "btn btn-ghost"
-          }
-        >
-          Contact
-        </NavLink>
-      </li>
+    </>
+   }
     </>
   );
 
