@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { useLoaderData } from 'react-router-dom';
 
 const JobDetails = () => {
@@ -16,12 +17,13 @@ const JobDetails = () => {
     responsibilities,
     company,
     hr_email,
+    _id,
     hr_name,
     company_logo,
   } = job;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 animate-fade-in">
+    <div className="max-w-6xl mt-20 mx-auto px-4 py-10 animate-fade-in">
       <div className="bg-gradient-to-br from-white to-gray-50 p-10 rounded-3xl shadow-xl border border-gray-100 transition-transform hover:scale-[1.01] duration-300">
         {/* Header */}
         <div className="flex items-center gap-6 mb-8">
@@ -77,9 +79,11 @@ const JobDetails = () => {
 
         {/* Button */}
         <div className="text-right">
+         <Link to={`/jobApply/${_id}`}>
           <button className="px-6 py-3 rounded-lg font-semibold bg-blue-600 text-white border border-blue-600 hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-md hover:shadow-lg">
             🚀 Apply Now
           </button>
+         </Link>
         </div>
       </div>
     </div>

@@ -1,33 +1,89 @@
-import React, { use } from "react";
-import { NavLink } from "react-router";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
-import logoImage from '../../assets/logo/logo.jpg'
+import logoImage from '../../assets/logo/logo.jpg';
 
 const Navbar = () => {
+  const { user, signOutUser } = useContext(AuthContext);
 
-  const {user, signOutUser} = use(AuthContext);
-
-  const handleSignOut = () =>{
+  const handleSignOut = () => {
     signOutUser()
-    .then(() =>{
-      console.log('Signed out user')
-    })
-    .catch(error =>{
-      console.log(error)
-    })
-  }
+      .then(() => {
+        console.log('Signed out user');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-    const links = <>
-    
-     <li><NavLink to='/'>Home</NavLink></li>
-     <li><NavLink to='/'>Home</NavLink></li>
-     <li><NavLink to='/'>Home</NavLink></li>
-     <li><NavLink to='/'>Home</NavLink></li>
-     <li><NavLink to='/'>Home</NavLink></li>
-     
+  // Menu links with active styles
+  const links = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "btn btn-ghost bg-sky-500 text-white"
+              : "btn btn-ghost"
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            isActive
+              ? "btn btn-ghost bg-sky-500 text-white"
+              : "btn btn-ghost"
+          }
+        >
+          About
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/services"
+          className={({ isActive }) =>
+            isActive
+              ? "btn btn-ghost bg-sky-500 text-white"
+              : "btn btn-ghost"
+          }
+        >
+          Services
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/blog"
+          className={({ isActive }) =>
+            isActive
+              ? "btn btn-ghost bg-sky-500 text-white"
+              : "btn btn-ghost"
+          }
+        >
+          Blog
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive
+              ? "btn btn-ghost bg-sky-500 text-white"
+              : "btn btn-ghost"
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
     </>
+  );
+
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm fixed top-0 left-0 w-full z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -38,38 +94,58 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              />
             </svg>
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
-           {links}
+            {links}
           </ul>
         </div>
-        <img className="w-[80px]" src={logoImage} alt="" />
-        <a className=" hidden md:flex text-sky-500 text-4xl font-bold">Career Code</a>
+        <img className="w-[80px]" src={logoImage} alt="Logo" />
+        <a className="hidden md:flex text-sky-500 text-4xl font-bold">Career Code</a>
       </div>
+
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-         {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
+
       <div className="navbar-end gap-3">
-        {
-          user? <button onClick={handleSignOut} className="btn btn-neutral btn-outline">Sign Out</button>:
+        {user ? (
+          <button onClick={handleSignOut} className="btn btn-neutral btn-outline">
+            Sign Out
+          </button>
+        ) : (
           <>
-          <NavLink className="btn btn-primary" to='/register'>Register</NavLink>
-        <NavLink className="btn btn-accent text-white" to='/signin'>SignIn</NavLink>
+            <NavLink
+              to="/register"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn bg-sky-500 text-white"
+                  : "btn btn-primary"
+              }
+            >
+              Register
+            </NavLink>
+            <NavLink
+              to="/signin"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn bg-sky-500 text-white"
+                  : "btn btn-accent text-white"
+              }
+            >
+              SignIn
+            </NavLink>
           </>
-        }
+        )}
       </div>
     </div>
   );
