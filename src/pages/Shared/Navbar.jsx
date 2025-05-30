@@ -40,6 +40,7 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
+      {/* For applicant links. Check roles as well */}
       {user && (
         <li>
           <NavLink
@@ -54,11 +55,28 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+      {/* For recruiter.Check roles as well */}
+      {
+        user && <>
+           <li>
+          <NavLink
+            to="/addJob"
+            className={({ isActive }) =>
+              isActive
+                ? "btn btn-ghost bg-sky-500 text-white rounded-lg"
+                : "btn btn-ghost text-base-content rounded-lg"
+            }
+          >
+            Add Job
+          </NavLink>
+        </li>
+        </>
+      }
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 transition-all duration-300 shadow-md fixed top-0 left-0 w-full z-50 px-4">
+    <div className="navbar bg-base-100 transition-all duration-300  shadow-md  top-0 left-0 w-full z-50 px-4">
       <div className="navbar-start gap-2">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
