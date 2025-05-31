@@ -8,7 +8,7 @@ const MyPostedJobs = () => {
     const {user} = useAuth();
     return (
         <div>
-            <h2>My Posted Jobs</h2>
+            <h2 className='text-4xl font-bold text-center'>My Posted Jobs</h2>
             <Suspense>
                 <JobList jobsCreatedByPromise={jobsCreatedByPromise(user.email)}></JobList>
             </Suspense>

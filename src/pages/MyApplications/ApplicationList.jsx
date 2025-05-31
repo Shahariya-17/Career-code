@@ -1,8 +1,23 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import JobApplicationRow from "./JobApplicationRow";
+import { myApplicationsPromise } from "../../api/applicationsApi";
+import useAuth from "../../hooks/useAuth";
 
-const ApplicationList = ({ myApplicationsPromise }) => {
-  const applications = use(myApplicationsPromise);
+const ApplicationList = () => {
+    const { user } = useAuth();
+  const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (user?.email) {
+      myApplicationsPromise(user.email)
+        .then(data => setApplications(data))
+        .catch(err => console.error(err))
+        .finally(() => setLoading(false));
+    }
+  }, [user?.email]);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div>

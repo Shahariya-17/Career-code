@@ -13,7 +13,7 @@ const MyApplications = () => {
         <div>
             <ApplicationsStat></ApplicationsStat>
            <Suspense fallback={'Loading your applications'}>
-             <ApplicationList myApplicationsPromise={myApplicationsPromise(user.email)}></ApplicationList>
+             <ApplicationList></ApplicationList>
            </Suspense>
         </div>
     );
